@@ -50,6 +50,13 @@ def toString(polynomial):
                 terms.append(f"{coefficient}x^{power}")
     return ' + '.join(terms)
 
+# Calculate the polynomial value
+def Calculation(poly, x):
+    val = 0
+    for power in set(poly.keys()):
+        val += poly[power] * (x ** power)
+    return val
+
 # Main function
 def main():
     line1 = input("enter first polynomial: ").strip()
@@ -63,6 +70,10 @@ def main():
 
     answer = add(poly1, poly2)
     print(toString(answer))
+
+    x = int(input("x = "))
+    val = Calculation(answer, x)
+    print(val)
 
 if __name__ == "__main__":
     main()
