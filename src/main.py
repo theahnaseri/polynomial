@@ -19,6 +19,37 @@ def toPolynomial(line):
         polynomial[int(power)] = int(coefficient)
     return polynomial
 
+# Adds two polynomials together
+def add(poly1, poly2):
+    result = {}
+    for power in set(poly1.keys()) | set(poly2.keys()):
+        result[power] = poly1.get(power, 0) + poly2.get(power, 0)
+    return result
+
+# Converts polynomial into string
+def toString(polynomial):
+    terms = []
+    for power in sorted(polynomial.keys(), reverse=True):
+        coefficient = polynomial[power]
+        # 2x^0 = 2
+        if power == 0:
+            terms.append(str(coefficient))
+        elif coefficient == 1:
+            # 1x^1 = x
+            if power == 1:
+                terms.append(f"x")
+            # 1x^2 = x^2
+            else:
+                terms.append(f"x^{power}")
+        else:
+            # 2x^1 = 2x
+            if power == 1:
+                terms.append(f"{coefficient}x")
+            # normal
+            else:
+                terms.append(f"{coefficient}x^{power}")
+    return ' + '.join(terms)
+
 # Main function
 def main():
     line1 = input("enter first polynomial: ").strip()
@@ -29,6 +60,9 @@ def main():
     
     print(poly1)
     print(poly2)
+
+    answer = add(poly1, poly2)
+    print(toString(answer))
 
 if __name__ == "__main__":
     main()
