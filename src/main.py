@@ -1,3 +1,5 @@
+from termcolor import colored
+
 # Converts string into polynomial
 def toPolynomial(line):
     terms = line.split(' + ')
@@ -59,21 +61,32 @@ def Calculation(poly, x):
 
 # Main function
 def main():
+    # Welcome
+    print(colored("===> Hello, Welcome To This Program <=== \n", "blue", attrs=["dark"]))
+
+    # Get Polynomials From User
     line1 = input("enter first polynomial: ").strip()
     line2 = input("enter secend polynomial: ").strip()
 
     poly1 = toPolynomial(line1)
     poly2 = toPolynomial(line2)
     
-    print(poly1)
-    print(poly2)
+    while line1 != "0":
+        answer = add(poly1, poly2)
+        print(colored("\nAnswer Is: ", "green" , attrs=["dark"]), toString(answer))
 
-    answer = add(poly1, poly2)
-    print(toString(answer))
+        # Get Value Of x From User
+        x = int(input("\nx = "))
+        val = Calculation(answer, x)
+        print(colored(f"\nValue Of Polynomial For x = {x} Is {val}", "magenta" , attrs= ["dark"]))
 
-    x = int(input("x = "))
-    val = Calculation(answer, x)
-    print(val)
+        # Get Polynomials From User
+        line1 = input("\nEnter First Polynomial (Enter 0 If You Want To End This!) : ").strip()
+        if line1 != "0":
+            line2 = input("Enter Secend Polynomial : ").strip()
+        else:
+            # Developers
+            print(colored("\nThank You For Choosing Us :)\n>>>Developed By Maryam Fakhraei & Amirhossein Naseri<<<", "cyan"))
 
 if __name__ == "__main__":
     main()
